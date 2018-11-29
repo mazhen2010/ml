@@ -1,0 +1,29 @@
+CREATE TABLE `r_commodity_flag` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `commodity_id` varchar(32) NOT NULL COMMENT '商品id 商品类型-商品主键',
+  `commodity_name` varchar(64) NOT NULL COMMENT '商品名称',
+  `commodity_type` tinyint(2) NOT NULL COMMENT '商品类型	1: 挂号 2: 体检3: 内容',
+  `hospital_flag` varchar(64) COMMENT '医院标签',
+  `department_flag` varchar(128) COMMENT '科室标签 一级科室-二级科室',
+  `doctor_flag` varchar(64) COMMENT '医生标签 医生A&医生B&医生C',
+  `disease_flag` varchar(1024) COMMENT '疾病标签 疾病A&疾病B&疾病C',
+  `symptom_flag` varchar(1024) COMMENT '症状标签 症状A&症状B&症状C',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_commodity_id` (`commodity_id`),
+  KEY `idx_commodity_type` (`commodity_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品标签表'
+
+
+CREATE TABLE `r_commodity_similarity` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `commodity_id` varchar(32) NOT NULL COMMENT '商品id 商品类型-商品主键',
+  `commodity_type` tinyint(2) NOT NULL COMMENT '商品类型	1: 挂号 2: 体检3: 内容',
+  `register_similarity` varchar(2048) NOT NULL COMMENT '号源商品相似度',
+  `checkup_similarity` varchar(2048) NOT NULL COMMENT '体检商品相似度',
+  `content_similarity` varchar(2048) NOT NULL COMMENT '内容商品相似度',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_commodity_id` (`commodity_id`),
+  KEY `idx_commodity_type` (`commodity_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品相似矩阵表'
